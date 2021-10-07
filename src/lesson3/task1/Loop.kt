@@ -174,13 +174,13 @@ fun sin(x: Double, eps: Double): Double {
     var result = 0.0
     var n = 1
     var d=x% (2*PI)
-    while (d > eps) {
+    while (d >= eps) {
 
         if (((n - 1) / 2) % 2 == 0) {
-            result = result+d
+            result +=d
         }
         else {
-            result = result-d
+            result -=d
         }
 
         n += 2
@@ -239,7 +239,7 @@ fun squareSequenceDigit(n: Int) {
         }
         chislo = (chislo * (10.0.pow(dlina)) + i * i).toInt()
     }
-    print(chislo)
+    print(chislo)//coming soon...
 }
 
 /**
