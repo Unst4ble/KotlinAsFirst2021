@@ -2,7 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -170,7 +170,24 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var result = 0.0
+    var n = 1
+    var d=x% (2*PI)
+    while (d > eps) {
+
+        if (((n - 1) / 2) % 2 == 0) {
+            result = result+d
+        }
+        else {
+            result = result-d
+        }
+
+        n += 2
+        d=d*(x%(2* PI)).pow(2)/(n*(n-1))
+    }
+    return result
+}
 
 /**
  * Средняя (4 балла)
@@ -181,7 +198,24 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var result = 0.0
+    var n = 0
+    var d=1.0
+    while (d > eps) {
+
+        if ((n / 2) % 2 == 0) {
+            result = result+d
+        }
+        else {
+            result = result-d
+        }
+
+        n += 2
+        d=d*(x%(2* PI)).pow(2)/(n*(n-1))
+    }
+    return result
+}
 
 /**
  * Сложная (4 балла)
@@ -192,7 +226,21 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int) {
+    var chislo = 1
+    var dlina = 0
+    var sq = 0
+    for (i in 2..n) {
+        dlina = 0
+        sq = i * i
+        while (sq > 0) {
+            dlina += 1
+            sq = sq / 10
+        }
+        chislo = (chislo * (10.0.pow(dlina)) + i * i).toInt()
+    }
+    print(chislo)
+}
 
 /**
  * Сложная (5 баллов)
