@@ -159,7 +159,19 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var gg = n
+    var b = false
+    while (gg >= 10) {
+        if (gg % 10 != (gg / 10 % 10)) {
+            b = true
+            break
+        }
+        gg /= 10
+    }
+    return b
+}
+
 
 /**
  * Средняя (4 балла)
@@ -173,18 +185,17 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
 fun sin(x: Double, eps: Double): Double {
     var result = 0.0
     var n = 1
-    var d=x% (2*PI)
+    var d = x % (2 * PI)
     while (d >= eps) {
 
         if (((n - 1) / 2) % 2 == 0) {
-            result +=d
-        }
-        else {
-            result -=d
+            result += d
+        } else {
+            result -= d
         }
 
         n += 2
-        d=d*(x%(2* PI)).pow(2)/(n*(n-1))
+        d = d * (x % (2 * PI)).pow(2) / (n * (n - 1))
     }
     return result
 }
@@ -201,18 +212,17 @@ fun sin(x: Double, eps: Double): Double {
 fun cos(x: Double, eps: Double): Double {
     var result = 0.0
     var n = 0
-    var d=1.0
+    var d = 1.0
     while (d > eps) {
 
         if ((n / 2) % 2 == 0) {
-            result = result+d
-        }
-        else {
-            result = result-d
+            result = result + d
+        } else {
+            result = result - d
         }
 
         n += 2
-        d=d*(x%(2* PI)).pow(2)/(n*(n-1))
+        d = d * (x % (2 * PI)).pow(2) / (n * (n - 1))
     }
     return result
 }

@@ -185,6 +185,7 @@ class Tests {
         assertTrue(hasDifferentDigits(323))
         assertTrue(hasDifferentDigits(54))
         assertTrue(hasDifferentDigits(222266666))
+        assertTrue(hasDifferentDigits(1222))
         assertFalse(hasDifferentDigits(0))
         assertFalse(hasDifferentDigits(777))
         assertTrue(hasDifferentDigits(31122))
