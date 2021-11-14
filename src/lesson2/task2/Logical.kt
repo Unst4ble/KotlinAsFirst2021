@@ -59,7 +59,14 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int) =
-    ((a <= r) and ((b <= s) or (c <= s))) or ((a <= s) and ((b <= r) or (c <= r))) or ((b <= r) and ((a <= s) or (c <= s))) or ((b <= s) and ((a <= r) or (c <= r))) or ((c <= r) and ((b <= s) or (a <= s))) or ((c <= s) and ((b <= r) or (a <= r)))
-// или надо было делать через return if?
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean{
+    val len = minOf(minOf(a, b), c)
+    val wid = maxOf(maxOf(a, b), c)
+    val hig = a + b + c - len - wid
+    val holeLen = minOf(r, s)
+    val holeHig = maxOf(r, s)
+    return (len <= holeLen) and  (hig <= holeHig)
+}
+
+    //((a <= r) and ((b <= s) or (c <= s))) or ((a <= s) and ((b <= r) or (c <= r))) or ((b <= r) and ((a <= s) or (c <= s))) or ((b <= s) and ((a <= r) or (c <= r))) or ((c <= r) and ((b <= s) or (a <= s))) or ((c <= s) and ((b <= r) or (a <= r)))
 
