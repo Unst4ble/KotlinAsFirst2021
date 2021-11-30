@@ -186,7 +186,7 @@ fun sin(x: Double, eps: Double): Double {
     var result = 0.0
     var n = 1
     var d = x % (2 * PI)
-    while (d >= eps) {
+    while (abs(d) >= eps) {
 
         if (((n - 1) / 2) % 2 == 0) {
             result += d
