@@ -220,10 +220,10 @@ fun convertToString(n: Int, base: Int): String = TODO()
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var x = 0
-    var result=0.0
-    for (i in 0..digits.size-1) {
+    var result = 0.0
+    for (i in 0..digits.size - 1) {
         x = digits[i]
-        result += x*base.toDouble().pow(digits.size-1-i)
+        result += x * base.toDouble().pow(digits.size - 1 - i)
     }
     return result.toInt()
 }
@@ -242,16 +242,16 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     var x = 0
-    var result=0.0
+    var result = 0.0
     //in char "0"==48 "a"==97
-    for (i in 0..str.length-1) {
+    for (i in 0..str.length - 1) {
         x = str[i].toInt()
-        x -= if (x<80){
+        x -= if (x < 80) {
             48
-        } else{
+        } else {
             87
         }
-        result += x*base.toDouble().pow(str.length-i-1)
+        result += x * base.toDouble().pow(str.length - i - 1)
     }
     return result.toInt()
 }
@@ -273,4 +273,137 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+
+    var res = ""
+    var number = n
+    var list: ArrayList<Int> = arrayListOf()
+    var i = 0
+    var dcat1 = false
+    var dcat2 = false
+
+    while (number > 0) {
+        list.add(i, number % 10)
+        number /= 10
+        i += 1
+    }
+
+    for (i in list.size - 1 downTo 0) {
+
+        if (i == 5) {
+            when (list[i]) {
+                1 -> res += "сто"
+                2 -> res += "двести"
+                3 -> res += "триста"
+                4 -> res += "четыреста"
+                5 -> res += "пятьсот"
+                6 -> res += "шестьсот"
+                7 -> res += "семьсот"
+                8 -> res += "восемьсот"
+                9 -> res += "девятьсот"
+            }
+        }
+
+        if (i == 4) {
+            if (list[i] == 1) {
+                when (list[i - 1]) {
+                    1 -> res += " одиннадцать тысяч"
+                    2 -> res += " двенадцать тысяч"
+                    3 -> res += " тринадцать тысяч"
+                    4 -> res += " четырнадцать тысяч"
+                    5 -> res += " пятнадцать тысяч"
+                    6 -> res += " шестнадцать тысяч"
+                    7 -> res += " семнадцать тысяч"
+                    8 -> res += " восемнадцать тысяч"
+                    9 -> res += " девятнадцать тысяч"
+                }
+                dcat1 = true
+            } else {
+                when (list[i]) {
+                    1 -> res += " десять"
+                    2 -> res += " двадцать"
+                    3 -> res += " тридцать"
+                    4 -> res += " сорок"
+                    5 -> res += " пятьдесят"
+                    6 -> res += " шестьдесят"
+                    7 -> res += " семьдесят"
+                    8 -> res += " восемьдесят"
+                    9 -> res += " девяносто"
+                }
+            }
+        }
+
+        if ((i == 3) and (!dcat1)) {
+            when (list[i]) {
+                0 -> res += " тысяч"
+                1 -> res += " одна тысяча"
+                2 -> res += " две тысячи"
+                3 -> res += " три тысячи"
+                4 -> res += " четыре тысячи"
+                5 -> res += " пять тысяч"
+                6 -> res += " шесть тысяч"
+                7 -> res += " семь тысяч"
+                8 -> res += " восемь тысяч"
+                9 -> res += " девять тысяч"
+            }
+        }
+
+        if (i == 2) {
+            when (list[i]) {
+                1 -> res += " сто"
+                2 -> res += " двести"
+                3 -> res += " триста"
+                4 -> res += " четыреста"
+                5 -> res += " пятьсот"
+                6 -> res += " шестьсот"
+                7 -> res += " семьсот"
+                8 -> res += " восемьсот"
+                9 -> res += " девятьсот"
+            }
+        }
+
+        if (i == 1) {
+            if (list[i] == 1) {
+                when (list[i - 1]) {
+                    1 -> res += " одиннадцать"
+                    2 -> res += " двенадцать"
+                    3 -> res += " тринадцать"
+                    4 -> res += " четырнадцать"
+                    5 -> res += " пятнадцать"
+                    6 -> res += " шестнадцать"
+                    7 -> res += " семнадцать"
+                    8 -> res += " восемнадцать"
+                    9 -> res += " девятнадцать"
+                }
+                dcat2 = true
+            } else {
+                when (list[i]) {
+                    1 -> res += " десять"
+                    2 -> res += " двадцать"
+                    3 -> res += " тридцать"
+                    4 -> res += " сорок"
+                    5 -> res += " пятьдесят"
+                    6 -> res += " шестьдесят"
+                    7 -> res += " семьдесят"
+                    8 -> res += " восемьдесят"
+                    9 -> res += " девяносто"
+                }
+            }
+        }
+
+        if ((i == 0) and (!dcat2)) {
+            when (list[i]) {
+                1 -> res += " один"
+                2 -> res += " два"
+                3 -> res += " три"
+                4 -> res += " четыре"
+                5 -> res += " пять"
+                6 -> res += " шесть"
+                7 -> res += " семь"
+                8 -> res += " восемь"
+                9 -> res += " девять"
+            }
+        }
+    }
+    return res.trim()
+}
