@@ -160,16 +160,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var gg = n
-    var b = false
-    while (gg >= 10) {
-        if (gg % 10 != (gg / 10 % 10)) {
-            b = true
+    var num = n
+    //var res = false
+    while (num >= 10) {
+        if (num % 10 != (num / 10 % 10)) {
+            return true
             break
         }
-        gg /= 10
+        num /= 10
     }
-    return b
+    return false
 }
 
 
@@ -216,9 +216,9 @@ fun cos(x: Double, eps: Double): Double {
     while (d > eps) {
 
         if ((n / 2) % 2 == 0) {
-            result = result + d
+            result += d
         } else {
-            result = result - d
+            result -= d
         }
 
         n += 2
@@ -236,21 +236,8 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int) {
-    var chislo = 1
-    var dlina = 0
-    var sq = 0
-    for (i in 2..n) {
-        dlina = 0
-        sq = i * i
-        while (sq > 0) {
-            dlina += 1
-            sq = sq / 10
-        }
-        chislo = (chislo * (10.0.pow(dlina)) + i * i).toInt()
-    }
-    print(chislo)//coming soon...
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
+
 
 /**
  * Сложная (5 баллов)
