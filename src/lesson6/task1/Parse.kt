@@ -103,10 +103,16 @@ fun dateStrToDigit(str: String): String {
             9 -> return ""
             11 -> return ""
         }
-    if (mon == 2) {
-        if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 != 0)) and (parts[0].toInt() > 29)) return ""
-        else if (parts[0].toInt() > 28) return ""
+
+    if (mon == 2){
+        if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and ((parts[2].toInt() < 100) or (parts[2].toInt() % 100 != 0)))
+            if (parts[0].toInt() > 29) return ""
+        else
+            if (parts[0].toInt() > 28) return ""
+
     }
+    //if ((mon == 2) and (parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and (parts[0].toInt() > 29)) return ""
+    //if ((mon == 2) and (parts[0].toInt() > 28) and ((parts[2].toInt() % 4 != 0) or ((parts[2].toInt() % 400 != 0) and (parts[2].toInt() >= 400))) return ""
 
     return String.format("%02d.%02d.%d", parts[0].toInt(), mon, parts[2].toInt())
 }
