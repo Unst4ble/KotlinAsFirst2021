@@ -307,6 +307,7 @@ fun russian(n: Int): String {
         if (i == 4) {
             if (list[i] == 1) {
                 when (list[i - 1]) {
+                    0 -> res += " десять тысяч"
                     1 -> res += " одиннадцать тысяч"
                     2 -> res += " двенадцать тысяч"
                     3 -> res += " тринадцать тысяч"
@@ -320,7 +321,6 @@ fun russian(n: Int): String {
                 if (list[i - 1] != 0) dcat1 = true
             } else {
                 when (list[i]) {
-                    1 -> res += " десять"
                     2 -> res += " двадцать"
                     3 -> res += " тридцать"
                     4 -> res += " сорок"
@@ -365,6 +365,7 @@ fun russian(n: Int): String {
         if (i == 1) {
             if (list[i] == 1) {
                 when (list[i - 1]) {
+                    0 -> res += " десять тысяч"
                     1 -> res += " одиннадцать"
                     2 -> res += " двенадцать"
                     3 -> res += " тринадцать"
@@ -378,7 +379,6 @@ fun russian(n: Int): String {
                 if (list[i - 1] != 0) dcat2 = true
             } else {
                 when (list[i]) {
-                    1 -> res += " десять"
                     2 -> res += " двадцать"
                     3 -> res += " тридцать"
                     4 -> res += " сорок"
