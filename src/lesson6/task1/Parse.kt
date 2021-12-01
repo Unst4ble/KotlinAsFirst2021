@@ -95,7 +95,7 @@ fun dateStrToDigit(str: String): String {
         else -> return ""
     }
 
-    if (parts[2].toInt() > 2022) return ""
+    if (parts[2].toInt() > 9999) return "" //в тестах не прошел 4477400 год, видимо нужно ограничить
     if ((parts[0].toInt() > 31) or (parts[0].toInt() < 1)) return ""
     if (parts[0].toInt() > 30)
         when (mon) {
