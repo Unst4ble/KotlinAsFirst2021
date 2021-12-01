@@ -317,7 +317,7 @@ fun russian(n: Int): String {
                     8 -> res += " восемнадцать тысяч"
                     9 -> res += " девятнадцать тысяч"
                 }
-                dcat1 = true
+                if (list[i - 1] != 0) dcat1 = true
             } else {
                 when (list[i]) {
                     1 -> res += " десять"
@@ -375,7 +375,7 @@ fun russian(n: Int): String {
                     8 -> res += " восемнадцать"
                     9 -> res += " девятнадцать"
                 }
-                dcat2 = true
+                if (list[i - 1] != 0) dcat2 = true
             } else {
                 when (list[i]) {
                     1 -> res += " десять"
