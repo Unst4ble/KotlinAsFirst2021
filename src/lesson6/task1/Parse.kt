@@ -95,6 +95,7 @@ fun dateStrToDigit(str: String): String {
         else -> return ""
     }
 
+    if (parts[2].toInt() > 2022) return ""
     if ((parts[0].toInt() > 31) or (parts[0].toInt() < 1)) return ""
     if (parts[0].toInt() > 30)
         when (mon) {
@@ -105,7 +106,6 @@ fun dateStrToDigit(str: String): String {
         }
     if ((parts[0].toInt() > 28) and (mon == 2) and (parts[2].toInt() % 4 != 0)) return ""
     if ((parts[0].toInt() > 29) and (mon == 2)) return ""
-
 
     return String.format("%02d.%02d.%d", parts[0].toInt(), mon, parts[2].toInt())
 }
