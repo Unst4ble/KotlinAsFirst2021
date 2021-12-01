@@ -104,7 +104,7 @@ fun dateStrToDigit(str: String): String {
             11 -> return ""
         }
     if (mon == 2) {
-        if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 400 != 0) and (parts[0].toInt() > 29)) return ""
+        if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 != 0)) and (parts[0].toInt() > 29)) return ""
         else if (parts[0].toInt() > 28) return ""
     }
 
