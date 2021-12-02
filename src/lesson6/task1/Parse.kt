@@ -78,6 +78,7 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toMutableList()
     if (parts.size != 3) return ""
 
+    var vesokosny = false
     var mon = 0
     mon = when (parts[1]) {
         "января" -> 1
@@ -104,13 +105,26 @@ fun dateStrToDigit(str: String): String {
             11 -> return ""
         }
 
-    if (mon == 2){
-        if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and ((parts[2].toInt() < 100) or (parts[2].toInt() % 100 != 0)))
-            if (parts[0].toInt() > 29) return ""
-        else
-            if (parts[0].toInt() > 28) return ""
+    if (mon == 2) {
+        if (parts[2].toInt() < 4) {
+            if (parts[2].toInt() == 0) vesokosny = true
+        } else if ((parts[2].toInt() >= 4) and (parts[2].toInt() < 100)) {
+            if (parts[2].toInt() % 4 == 0) vesokosny = true
+        } else if ((parts[2].toInt() >= 100) and (parts[2].toInt() < 400)) {
+            if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 100 != 0)) vesokosny = true
+        } else if (parts[2].toInt() >= 400) {
+            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny = true
+        }
 
+        if ((vesokosny) and (parts[0].toInt() > 29)) return ""
+        if (!(vesokosny) and (parts[0].toInt() > 28)) return ""
     }
+    //if (mon == 2) {
+    //    if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() >= 4) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and ((parts[2].toInt() < 100) or (parts[2].toInt() % 100 != 0))) {
+    //        if (parts[0].toInt() > 29) return ""
+    //    } else
+    //        if (parts[0].toInt() > 28) return ""
+    //}
     //if ((mon == 2) and (parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and (parts[0].toInt() > 29)) return ""
     //if ((mon == 2) and (parts[0].toInt() > 28) and ((parts[2].toInt() % 4 != 0) or ((parts[2].toInt() % 400 != 0) and (parts[2].toInt() >= 400))) return ""
 
