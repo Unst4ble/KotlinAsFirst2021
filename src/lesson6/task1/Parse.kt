@@ -113,20 +113,13 @@ fun dateStrToDigit(str: String): String {
         } else if ((parts[2].toInt() >= 100) and (parts[2].toInt() < 400)) {
             if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 100 != 0)) vesokosny = true
         } else if (parts[2].toInt() >= 400) {
-            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny = true
+            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny =
+                true
         }
 
         if ((vesokosny) and (parts[0].toInt() > 29)) return ""
         if (!(vesokosny) and (parts[0].toInt() > 28)) return ""
     }
-    //if (mon == 2) {
-    //    if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() >= 4) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and ((parts[2].toInt() < 100) or (parts[2].toInt() % 100 != 0))) {
-    //        if (parts[0].toInt() > 29) return ""
-    //    } else
-    //        if (parts[0].toInt() > 28) return ""
-    //}
-    //if ((mon == 2) and (parts[2].toInt() % 4 == 0) and ((parts[2].toInt() < 400) or (parts[2].toInt() % 400 == 0)) and (parts[0].toInt() > 29)) return ""
-    //if ((mon == 2) and (parts[0].toInt() > 28) and ((parts[2].toInt() % 4 != 0) or ((parts[2].toInt() % 400 != 0) and (parts[2].toInt() >= 400))) return ""
 
     return String.format("%02d.%02d.%d", parts[0].toInt(), mon, parts[2].toInt())
 }
@@ -141,7 +134,64 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val parts = digital.split(".").toMutableList()
+    if (parts.size != 3) return ""
+
+    try {
+        val a = parts[0].toInt()
+        val b = parts[1].toInt()
+        val c = parts[2].toInt()
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+
+    var vesokosny = false
+    var mon = ""
+    mon = when (parts[1].toInt()) {
+        1 -> "января"
+        2 -> "февраля"
+        3 -> "марта"
+        4 -> "апреля"
+        5 -> "мая"
+        6 -> "июня"
+        7 -> "июля"
+        8 -> "августа"
+        9 -> "сентября"
+        10 -> "октября"
+        11 -> "ноября"
+        12 -> "декабря"
+        else -> return ""
+    }
+
+    if ((parts[0].toInt() > 31) or (parts[0].toInt() < 1)) return ""
+    if (parts[0].toInt() > 30)
+        when (parts[1].toInt()) {
+            4 -> return ""
+            6 -> return ""
+            9 -> return ""
+            11 -> return ""
+        }
+
+    if (parts[1].toInt() == 2) {
+        if (parts[2].toInt() < 4) {
+            if (parts[2].toInt() == 0) vesokosny = true
+        } else if ((parts[2].toInt() >= 4) and (parts[2].toInt() < 100)) {
+            if (parts[2].toInt() % 4 == 0) vesokosny = true
+        } else if ((parts[2].toInt() >= 100) and (parts[2].toInt() < 400)) {
+            if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 100 != 0)) vesokosny = true
+        } else if (parts[2].toInt() >= 400) {
+            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny =
+                true
+        }
+
+        if ((vesokosny) and (parts[0].toInt() > 29)) return ""
+        if (!(vesokosny) and (parts[0].toInt() > 28)) return ""
+    }
+
+    var day = parts[0].toInt()
+    return day.toString() + " " + mon + " " + parts[2]
+}
 
 /**
  * Средняя (4 балла)
