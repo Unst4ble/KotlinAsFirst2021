@@ -165,7 +165,6 @@ fun hasDifferentDigits(n: Int): Boolean {
     while (num >= 10) {
         if (num % 10 != (num / 10 % 10)) {
             return true
-            break
         }
         num /= 10
     }

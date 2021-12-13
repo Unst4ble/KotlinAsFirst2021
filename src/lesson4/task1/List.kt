@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.text.DecimalFormat
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -219,13 +220,15 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var x = 0
-    var result = 0.0
-    for (i in 0..digits.size - 1) {
-        x = digits[i]
-        result += x * base.toDouble().pow(digits.size - 1 - i)
+    //var x = 0
+    //var result = 0.0
+    //for (i in 0..digits.size - 1) {
+    //    x = digits[i]
+    //    result += x * base.toDouble().pow(digits.size - 1 - i)
+    //}
+    return digits.foldIndexed(0) { i, sum, element ->
+        sum + (element * base.toDouble().pow(digits.size - 1 - i)).toInt()
     }
-    return result.toInt()
 }
 
 /**
@@ -253,6 +256,7 @@ fun decimalFromString(str: String, base: Int): Int {
         }
         result += x * base.toDouble().pow(str.length - i - 1)
     }
+    val df = DecimalFormat("0")
     return result.toInt()
 }
 

@@ -217,7 +217,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val result = (mutableMapOf<String, Int>())
+    val result = mutableMapOf<String, Int>()
     for (i in list.indices)
         if (!result.containsKey(list[i])) result[list[i]] = 1
         else result[list[i]] = result.getValue(list[i]) + 1

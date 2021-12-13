@@ -79,8 +79,7 @@ fun dateStrToDigit(str: String): String {
     if (parts.size != 3) return ""
 
     var vesokosny = false
-    var mon = 0
-    mon = when (parts[1]) {
+    val mon = when (parts[1]) {
         "января" -> 1
         "февраля" -> 2
         "марта" -> 3
@@ -147,8 +146,7 @@ fun dateDigitToStr(digital: String): String {
     }
 
     var vesokosny = false
-    var mon = ""
-    mon = when (parts[1].toInt()) {
+    val mon = when (parts[1].toInt()) {
         1 -> "января"
         2 -> "февраля"
         3 -> "марта"
