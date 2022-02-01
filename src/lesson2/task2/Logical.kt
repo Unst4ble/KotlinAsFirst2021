@@ -68,5 +68,5 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean{
     return (len <= holeLen) and  (hig <= holeHig)
 }
 
-    //((a <= r) and ((b <= s) or (c <= s))) or ((a <= s) and ((b <= r) or (c <= r))) or ((b <= r) and ((a <= s) or (c <= s))) or ((b <= s) and ((a <= r) or (c <= r))) or ((c <= r) and ((b <= s) or (a <= s))) or ((c <= s) and ((b <= r) or (a <= r)))
+    //((a <= r)and ((b <= s) or (c <= s))) or ((a <= s) and ((b <= r) or (c <= r))) or ((b <= r) and ((a <= s) or (c <= s))) or ((b <= s) and ((a <= r) or (c <= r))) or ((c <= r) and ((b <= s) or (a <= s))) or ((c <= s) and ((b <= r) or (a <= r)))
 
