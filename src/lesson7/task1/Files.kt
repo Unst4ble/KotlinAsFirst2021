@@ -120,6 +120,7 @@ fun sibilants(inputName: String, outputName: String) {
     writer.close()
 }
 
+//
 /**
  * Средняя (15 баллов)
  *
