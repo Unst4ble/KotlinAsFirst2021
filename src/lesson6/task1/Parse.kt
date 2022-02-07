@@ -75,8 +75,9 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val parts = str.split(" ").toMutableList()
+    val parts = str.split(" ").toList()
     if (parts.size != 3) return ""
+
 
     try {
         parts[0].toInt()
@@ -85,8 +86,8 @@ fun dateStrToDigit(str: String): String {
         return ""
     }
 
-    var day = parts[0].toInt()
-    var year = parts[2].toInt()
+    val day = parts[0].toInt()
+    val year = parts[2].toInt()
 
     var leap = false
     val mon = when (parts[1]) {
@@ -166,9 +167,9 @@ fun dateDigitToStr(digital: String): String {
         return ""
     }
 
-    var day = parts[0].toInt()
-    var month = parts[1].toInt()
-    var year = parts[2].toInt()
+    val day = parts[0].toInt()
+    val month = parts[1].toInt()
+    val year = parts[2].toInt()
 
     var leap = false
     val mon = when (month) {

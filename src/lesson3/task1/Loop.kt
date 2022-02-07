@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import MyFunctions.sqrInt
+import lesson4.task1.russian
 import kotlin.math.*
 
 // Урок 3: циклы
@@ -236,7 +238,6 @@ fun cos(x: Double, eps: Double): Double {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var num = 0
     var i = 0
     var a = 0
     var sq = 0
@@ -245,7 +246,7 @@ fun squareSequenceDigit(n: Int): Int {
     var symbolscount = 0
     while (symbolscount < n) {
         i += 1
-        sq = i * i
+        sq = sqrInt(i, 2) //написал отдельную функцию для возведения в степень для Int
         c = 1
         k = 10
         while (sq.div(k) != 0) {

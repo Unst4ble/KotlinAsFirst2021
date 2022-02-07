@@ -219,17 +219,14 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    //var x = 0
-    //var result = 0.0
-    //for (i in 0..digits.size - 1) {
-    //    x = digits[i]
-    //    result += x * base.toDouble().pow(digits.size - 1 - i)
-    //}
-    return digits.foldIndexed(0) { i, sum, element ->
-        sum + (element * base.toDouble().pow(digits.size - 1 - i)).toInt()
-    }
+fun decimal(digits: List<Int>, base: Int) = digits.foldIndexed(0) { i, sum, element ->
+    sum + (element * base.toDouble().pow(digits.size - 1 - i)).toInt()
 }
+// foldIndexed - операция свертки, делает из списка один элемент, в скобках (initial) - начальный аргумент (sum = 0)
+// далее - перебор всех элементов списка, на каждый из них накладывается лямбда
+// sum - предыдущее значение результата
+// i - index
+// отличается от reduce отсутствием начального значения
 
 /**
  * Сложная (4 балла)
@@ -243,22 +240,46 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
+
 fun decimalFromString(str: String, base: Int): Int {
+    /** решение через функцию высшего порядка
+    return str.foldIndexed(0) { i, sum, element ->
     var x = 0
-    var result = 0.0
-    //in char "0"==48 "a"==97
-    for (i in 0..str.length - 1) {
-        x = str[i].toInt()
-        x -= if (x < 80) {
-            48
-        } else {
-            87
-        }
-        result += x * base.toDouble().pow(str.length - i - 1)
+    if (element in 'a'..'z') x = 39
+    sum + ((element.code - 48 - x) * base.toDouble().pow(str.length - i - 1)).toInt()
     }
-    val df = DecimalFormat("0")
-    return result.toInt()
+     */
+
+    val lst = mutableListOf<Int>()
+    var index = 0
+    for (i in str) {
+        if (i in 'a'..'z') lst.add(index++, i.code - 87)
+        else lst.add(index++, i.code - 48)
+    }
+    return decimal(lst.toList(), base)
+
+
+} //element.code - номер символа в Unicode
+
+
+/**
+val lst = mutableListOf<Int>()
+var x = 0
+for (i in 0..str.length - 1) {
+x = str[i].toInt()
+x -= if (x < 80) {
+48
+} else {
+87
 }
+lst.add(i,x)
+}
+
+return lst.foldIndexed(0) { i, sum, element ->
+sum + (element * base.toDouble().pow(str.length - i - 1)).toInt()
+}
+ */
+
 
 /**
  * Сложная (5 баллов)
@@ -281,7 +302,7 @@ fun russian(n: Int): String {
 
     var res = ""
     var number = n
-    var list: ArrayList<Int> = arrayListOf()
+    val list = mutableListOf<Int>()
     var i = 0
     var dcat1 = false
     var dcat2 = false
