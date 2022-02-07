@@ -78,7 +78,17 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toMutableList()
     if (parts.size != 3) return ""
 
-    var vesokosny = false
+    try {
+        parts[0].toInt()
+        parts[2].toInt()
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+
+    var day = parts[0].toInt()
+    var year = parts[2].toInt()
+
+    var leap = false
     val mon = when (parts[1]) {
         "января" -> 1
         "февраля" -> 2
@@ -95,8 +105,9 @@ fun dateStrToDigit(str: String): String {
         else -> return ""
     }
 
-    if ((parts[0].toInt() > 31) or (parts[0].toInt() < 1)) return ""
-    if (parts[0].toInt() > 30)
+
+    if ((day !in 1..31)) return ""
+    if (day > 30)
         when (mon) {
             4 -> return ""
             6 -> return ""
@@ -105,23 +116,33 @@ fun dateStrToDigit(str: String): String {
         }
 
     if (mon == 2) {
-        if (parts[2].toInt() < 4) {
-            if (parts[2].toInt() == 0) vesokosny = true
-        } else if ((parts[2].toInt() >= 4) and (parts[2].toInt() < 100)) {
-            if (parts[2].toInt() % 4 == 0) vesokosny = true
-        } else if ((parts[2].toInt() >= 100) and (parts[2].toInt() < 400)) {
-            if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 100 != 0)) vesokosny = true
-        } else if (parts[2].toInt() >= 400) {
-            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny =
-                true
+
+        if (year % 4 == 0) {
+            leap = if (year % 100 == 0) {
+                (year % 400) == 0
+            } else true
         }
 
-        if ((vesokosny) and (parts[0].toInt() > 29)) return ""
-        if (!(vesokosny) and (parts[0].toInt() > 28)) return ""
+        /**
+        if (year < 4) {
+            if (year == 0) leap = true
+        } else if ((year >= 4) and (year < 100)) {
+            if (year % 4 == 0) leap = true
+        } else if ((year >= 100) and (year < 400)) {
+            if ((year % 4 == 0) and (year % 100 != 0)) leap = true
+        } else if (year >= 400) {
+            if ((year % 4 == 0) and ((year % 100 != 0) or (year % 400 == 0))) leap =
+                true
+        }
+        **/
+
+        if ((leap) and (day > 29)) return ""
+        if (!(leap) and (day > 28)) return ""
     }
 
-    return String.format("%02d.%02d.%d", parts[0].toInt(), mon, parts[2].toInt())
+    return String.format("%02d.%02d.%d", day, mon, year)
 }
+
 
 /**
  * Средняя (4 балла)
@@ -138,15 +159,19 @@ fun dateDigitToStr(digital: String): String {
     if (parts.size != 3) return ""
 
     try {
-        val a = parts[0].toInt()
-        val b = parts[1].toInt()
-        val c = parts[2].toInt()
+        var a = parts[0].toInt()
+        var b = parts[1].toInt()
+        var c = parts[2].toInt()
     } catch (e: NumberFormatException) {
         return ""
     }
 
-    var vesokosny = false
-    val mon = when (parts[1].toInt()) {
+    var day = parts[0].toInt()
+    var month = parts[1].toInt()
+    var year = parts[2].toInt()
+
+    var leap = false
+    val mon = when (month) {
         1 -> "января"
         2 -> "февраля"
         3 -> "марта"
@@ -162,33 +187,40 @@ fun dateDigitToStr(digital: String): String {
         else -> return ""
     }
 
-    if ((parts[0].toInt() > 31) or (parts[0].toInt() < 1)) return ""
-    if (parts[0].toInt() > 30)
-        when (parts[1].toInt()) {
+    if ((day > 31) or (day < 1)) return ""
+    if (day > 30)
+        when (month) {
             4 -> return ""
             6 -> return ""
             9 -> return ""
             11 -> return ""
         }
 
-    if (parts[1].toInt() == 2) {
-        if (parts[2].toInt() < 4) {
-            if (parts[2].toInt() == 0) vesokosny = true
-        } else if ((parts[2].toInt() >= 4) and (parts[2].toInt() < 100)) {
-            if (parts[2].toInt() % 4 == 0) vesokosny = true
-        } else if ((parts[2].toInt() >= 100) and (parts[2].toInt() < 400)) {
-            if ((parts[2].toInt() % 4 == 0) and (parts[2].toInt() % 100 != 0)) vesokosny = true
-        } else if (parts[2].toInt() >= 400) {
-            if ((parts[2].toInt() % 4 == 0) and ((parts[2].toInt() % 100 != 0) or (parts[2].toInt() % 400 == 0))) vesokosny =
-                true
+    if (month == 2) {
+
+        if (year % 4 == 0) {
+            leap = if (year % 100 == 0) {
+                (year % 400) == 0
+            } else true
         }
 
-        if ((vesokosny) and (parts[0].toInt() > 29)) return ""
-        if (!(vesokosny) and (parts[0].toInt() > 28)) return ""
+        /**
+        if (year < 4) {
+            if (year == 0) leap = true
+        } else if ((year >= 4) and (year < 100)) {
+            if (year % 4 == 0) leap = true
+        } else if ((year >= 100) and (year < 400)) {
+            if ((year % 4 == 0) and (year % 100 != 0)) leap = true
+        } else if (year >= 400) {
+            if ((year % 4 == 0) and ((year % 100 != 0) or (year % 400 == 0))) leap = true
+        }
+        */
+
+        if ((leap) and (day > 29)) return ""
+        if (!(leap) and (day > 28)) return ""
     }
 
-    var day = parts[0].toInt()
-    return day.toString() + " " + mon + " " + parts[2]
+    return "$day $mon $year"
 }
 
 /**

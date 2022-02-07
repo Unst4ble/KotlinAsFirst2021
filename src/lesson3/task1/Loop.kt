@@ -235,8 +235,34 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
-
+fun squareSequenceDigit(n: Int): Int {
+    var num = 0
+    var i = 0
+    var a = 0
+    var sq = 0
+    var c = 1
+    var k = 10
+    var symbolscount = 0
+    while (symbolscount < n) {
+        i += 1
+        sq = i * i
+        c = 1
+        k = 10
+        while (sq.div(k) != 0) {
+            k *= 10
+            c += 1
+        }
+        symbolscount += c
+    }
+    symbolscount -= c
+    k = k.div(10)
+    while (symbolscount != n) {
+        a = (sq.div(k)).mod(10)
+        k = k.div(10)
+        symbolscount = symbolscount + 1
+    }
+    return a
+}
 
 /**
  * Сложная (5 баллов)
