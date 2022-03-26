@@ -3,7 +3,9 @@
 package lesson3.task1
 
 import MyFunctions.sqrInt
+import lesson1.task1.sqr
 import lesson4.task1.russian
+import java.math.BigInteger
 import kotlin.math.*
 
 // Урок 3: циклы
@@ -237,33 +239,51 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+
 fun squareSequenceDigit(n: Int): Int {
-    var i = 0
-    var a = 0
-    var sq = 0
-    var c = 1
-    var k = 10
+    val list = mutableListOf<Int>()
     var symbolscount = 0
+    var num = 0
+    var i = 1
     while (symbolscount < n) {
-        i += 1
-        sq = sqrInt(i, 2) //написал отдельную функцию для возведения в степень для Int
-        c = 1
-        k = 10
-        while (sq.div(k) != 0) {
-            k *= 10
-            c += 1
+        num = sqr(i)
+        while (num > 0) {
+            list.add(num%10)
+            num /= 10
+            symbolscount ++
         }
-        symbolscount += c
+        i++
     }
-    symbolscount -= c
-    k = k.div(10)
-    while (symbolscount != n) {
-        a = (sq.div(k)).mod(10)
-        k = k.div(10)
-        symbolscount = symbolscount + 1
-    }
-    return a
+    return list[n-1] //попробовать переделать без листа
 }
+/**
+var i = 0
+var a = 0
+var sq = 0
+var c = 1
+var k = 10
+var symbolscount = 0
+while (symbolscount < n) {
+i += 1
+sq = sqrInt(i, 2) //написал отдельную функцию для возведения в степень для Int
+c = 1
+k = 10
+while (sq.div(k) != 0) {
+k *= 10
+c += 1
+}
+symbolscount += c
+}
+symbolscount -= c
+k = k.div(10)
+while (symbolscount != n) {
+a = (sq.div(k)).mod(10)
+k = k.div(10)
+symbolscount = symbolscount + 1
+}
+return a
+ */
+
 
 /**
  * Сложная (5 баллов)

@@ -2,6 +2,10 @@
 
 package lesson5.task1
 
+import lesson6.task1.firstDuplicateIndex
+import ru.spbstu.wheels.mapToArray
+import ru.spbstu.wheels.toTArray
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -183,18 +187,24 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
+
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-
-
-    var name: String? = null
-    var pr = -1.0
-    for ((key) in stuff)
-        if ((stuff[key]?.first == kind) && ((pr == -1.0) || (pr > (stuff[key]?.second ?: return null)))) {
-            pr = (stuff[key]?.second ?: return null)
-            name = key
-        }
-    return name
+    val x = stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else Double.MAX_VALUE }
+    //!! - в stuff[it].second точно Double
+    //groupBy преобразовал мапу в другую, где ключ - цена, а value - название товара, в отдельный ключ отправляются неинтересующие товары
+    if (x.size == 1 && Double.MAX_VALUE in x) return null
+    return x[x.keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
+    //почитать про minOrNull
 }
+    //var name: String? = null
+    //var pr = -1.0
+    //for ((key) in stuff)
+    //    if ((stuff[key]?.first == kind) && ((pr == -1.0) || (pr > (stuff[key]?.second ?: return null)))) {
+    //        pr = (stuff[key]?.second ?: return null)
+    //        name = key
+    //    }
+    //return name
+
 
 /**
  * Средняя (3 балла)
