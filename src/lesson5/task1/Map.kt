@@ -2,10 +2,6 @@
 
 package lesson5.task1
 
-import lesson6.task1.firstDuplicateIndex
-import ru.spbstu.wheels.mapToArray
-import ru.spbstu.wheels.toTArray
-
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -190,7 +186,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
 
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
     val x = stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else Double.MAX_VALUE }
-    //!! - в stuff[it].second точно Double
+    //!! - в stuff[it].second точно Double, мамой клянусь
     //groupBy преобразовал мапу в другую, где ключ - цена, а value - название товара, в отдельный ключ отправляются неинтересующие товары
     if (x.size == 1 && Double.MAX_VALUE in x) return null
     return x[x.keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
@@ -230,11 +226,12 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val result = mutableMapOf<String, Int>()
-    for (i in list.indices)
-        if (!result.containsKey(list[i])) result[list[i]] = 1
-        else result[list[i]] = result.getValue(list[i]) + 1
-    return result.filterValues { it > 1 }
+    val resultMap: MutableMap<String, Int> = mutableMapOf() //создаю пустую мапу
+    for (i in list.indices) {
+        if (!resultMap.containsKey(list[i])) resultMap[list[i]] = 1
+        else resultMap[list[i]] = resultMap[list[i]] !!+ 1 //!!, тк точно Int, есть вариант с getValue
+    }
+    return resultMap.filterValues { it > 1 }
 }
 
 /**
