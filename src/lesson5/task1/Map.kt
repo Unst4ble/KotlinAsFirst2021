@@ -185,12 +185,12 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var stuffWithKind = stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else -1.0 }
+    val stuffWithKind = (stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else null }).filterKeys { it != null }
     //!! - в stuff[it].second точно Double, мамой клянусь
     //groupBy преобразовал мапу в другую, где ключ - цена, а value - название товара, в отдельный ключ отправляются неинтересующие товары
-    stuffWithKind = stuffWithKind.filterKeys { it >= 0 }
     //if (stuffWithKind.isEmpty()) return null
-    return stuffWithKind[stuffWithKind.keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
+    //val x: Map<Double, List<String>> = stuffWithKind as Map<Double, List<String>>
+    return stuffWithKind[(stuffWithKind as Map<Double, List<String>>).keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
     //почитать про minOrNull
 }
 //var name: String? = null
