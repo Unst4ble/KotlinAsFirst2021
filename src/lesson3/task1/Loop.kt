@@ -3,7 +3,6 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import java.math.BigInteger
 import kotlin.math.*
 
 // Урок 3: циклы
@@ -239,32 +238,36 @@ fun cos(x: Double, eps: Double): Double {
  */
 
 fun squareSequenceDigit(n: Int): Int {
+    //использую Long, тк Int имеет слишком узкий диапазон для данного задания (конкретно в вычислении квадратов)
     var i = 0
-    var a = 0L
-    var sq = 0L
-    var c = 1
-    var k = 10L
-    var symbolscount = 0
-    while (symbolscount < n) {
-        i += 1
-        sq = (sqr(i)).toLong()
-        c = 1
-        k = 10
-        while ((sq / k) != 0L) {
-            k *= 10
-            c += 1
-        }
-        symbolscount += c
-    }
-    symbolscount -= c
-    k /= 10
-    while (symbolscount != n) {
-        a = (sq / k) % 10
-        k /= 10
-        symbolscount += 1
-    }
-    return a.toInt()
+    var res = 0L
+    var square = 0L
+    var j = 1
+    var divider = 10L //делитель
+    var symbolsCount = 0 // счетчик порядка числа (цифр в числе)
 
+    while (symbolsCount < n) {
+        i += 1
+        square = (sqr(i)).toLong()
+        j = 1
+        divider = 10
+        while (square / divider != 0L) {
+            divider *= 10
+            j += 1
+        }
+        symbolsCount += j
+    }
+
+    symbolsCount -= j // ↓
+    divider /= 10 // откат на один символ, чтобы не было деления на 0
+
+    while (symbolsCount != n) {
+        res = square / divider % 10
+        divider /= 10
+        symbolsCount += 1
+    }
+
+    return res.toInt()
 }
 /**
 var i = 0
