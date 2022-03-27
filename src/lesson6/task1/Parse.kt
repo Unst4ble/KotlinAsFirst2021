@@ -78,7 +78,6 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toList()
     if (parts.size != 3) return ""
 
-
     try {
         parts[0].toInt()
         parts[2].toInt()
@@ -106,7 +105,6 @@ fun dateStrToDigit(str: String): String {
         else -> return ""
     }
 
-
     if ((day !in 1..31)) return ""
     if (day > 30)
         when (mon) {
@@ -116,29 +114,15 @@ fun dateStrToDigit(str: String): String {
             11 -> return ""
         }
 
-    if (mon == 2) {
-
+    if (mon == 2) { //проверка високосности
         if (year % 4 == 0) {
             leap = if (year % 100 == 0) {
                 (year % 400) == 0
             } else true
         }
 
-        /**
-        if (year < 4) {
-            if (year == 0) leap = true
-        } else if ((year >= 4) and (year < 100)) {
-            if (year % 4 == 0) leap = true
-        } else if ((year >= 100) and (year < 400)) {
-            if ((year % 4 == 0) and (year % 100 != 0)) leap = true
-        } else if (year >= 400) {
-            if ((year % 4 == 0) and ((year % 100 != 0) or (year % 400 == 0))) leap =
-                true
-        }
-        **/
-
-        if ((leap) and (day > 29)) return ""
-        if (!(leap) and (day > 28)) return ""
+        if ((leap) && (day > 29)) return ""
+        if (!(leap) && (day > 28)) return ""
     }
 
     return String.format("%02d.%02d.%d", day, mon, year)
@@ -160,9 +144,9 @@ fun dateDigitToStr(digital: String): String {
     if (parts.size != 3) return ""
 
     try {
-        var a = parts[0].toInt()
-        var b = parts[1].toInt()
-        var c = parts[2].toInt()
+        parts[0].toInt()
+        parts[1].toInt()
+        parts[2].toInt()
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -188,7 +172,7 @@ fun dateDigitToStr(digital: String): String {
         else -> return ""
     }
 
-    if ((day > 31) or (day < 1)) return ""
+    if ((day > 31) || (day < 1)) return ""
     if (day > 30)
         when (month) {
             4 -> return ""
@@ -198,27 +182,14 @@ fun dateDigitToStr(digital: String): String {
         }
 
     if (month == 2) {
-
         if (year % 4 == 0) {
             leap = if (year % 100 == 0) {
                 (year % 400) == 0
             } else true
         }
 
-        /**
-        if (year < 4) {
-            if (year == 0) leap = true
-        } else if ((year >= 4) and (year < 100)) {
-            if (year % 4 == 0) leap = true
-        } else if ((year >= 100) and (year < 400)) {
-            if ((year % 4 == 0) and (year % 100 != 0)) leap = true
-        } else if (year >= 400) {
-            if ((year % 4 == 0) and ((year % 100 != 0) or (year % 400 == 0))) leap = true
-        }
-        */
-
-        if ((leap) and (day > 29)) return ""
-        if (!(leap) and (day > 28)) return ""
+        if ((leap) && (day > 29)) return ""
+        if (!(leap) && (day > 28)) return ""
     }
 
     return "$day $mon $year"
