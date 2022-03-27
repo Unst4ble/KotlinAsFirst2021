@@ -185,21 +185,22 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    val x = stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else Double.MAX_VALUE }
+    val stuffWithKind = stuff.keys.groupBy { if (stuff[it]?.first == kind) stuff[it]!!.second else -1.0 }
     //!! - в stuff[it].second точно Double, мамой клянусь
     //groupBy преобразовал мапу в другую, где ключ - цена, а value - название товара, в отдельный ключ отправляются неинтересующие товары
-    if (x.size == 1 && Double.MAX_VALUE in x) return null
-    return x[x.keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
+    if (stuffWithKind.size == 1 && -1.0 in stuffWithKind) return null
+    stuffWithKind.filterKeys { it > -1.0 }
+    return stuffWithKind[stuffWithKind.keys.minOrNull()]?.get(0) // ?. безопасный вызов, get(0), потому что в value лист
     //почитать про minOrNull
 }
-    //var name: String? = null
-    //var pr = -1.0
-    //for ((key) in stuff)
-    //    if ((stuff[key]?.first == kind) && ((pr == -1.0) || (pr > (stuff[key]?.second ?: return null)))) {
-    //        pr = (stuff[key]?.second ?: return null)
-    //        name = key
-    //    }
-    //return name
+//var name: String? = null
+//var pr = -1.0
+//for ((key) in stuff)
+//    if ((stuff[key]?.first == kind) && ((pr == -1.0) || (pr > (stuff[key]?.second ?: return null)))) {
+//        pr = (stuff[key]?.second ?: return null)
+//        name = key
+//    }
+//return name
 
 
 /**
@@ -229,7 +230,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     val resultMap: MutableMap<String, Int> = mutableMapOf() //создаю пустую мапу
     for (i in list.indices) {
         if (!resultMap.containsKey(list[i])) resultMap[list[i]] = 1
-        else resultMap[list[i]] = resultMap[list[i]] !!+ 1 //!!, тк точно Int, есть вариант с getValue
+        else resultMap[list[i]] = resultMap[list[i]]!! + 1 //!!, тк точно Int, есть вариант с getValue
     }
     return resultMap.filterValues { it > 1 }
 }
