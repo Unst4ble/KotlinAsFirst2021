@@ -240,17 +240,17 @@ fun cos(x: Double, eps: Double): Double {
 
 fun squareSequenceDigit(n: Int): Int {
     var i = 0
-    var a = 0.toBigInteger()
-    var sq = 0.toBigInteger()
+    var a = 0L
+    var sq = 0L
     var c = 1
-    var k = 10
+    var k = 10L
     var symbolscount = 0
     while (symbolscount < n) {
         i += 1
-        sq = (sqr(i)).toBigInteger()
+        sq = (sqr(i)).toLong()
         c = 1
         k = 10
-        while ((sq / k.toBigInteger()) != 0.toBigInteger()) {
+        while ((sq / k) != 0L) {
             k *= 10
             c += 1
         }
@@ -259,7 +259,7 @@ fun squareSequenceDigit(n: Int): Int {
     symbolscount -= c
     k /= 10
     while (symbolscount != n) {
-        a = (sq / k.toBigInteger()) % 10.toBigInteger()
+        a = (sq / k) % 10
         k /= 10
         symbolscount += 1
     }
