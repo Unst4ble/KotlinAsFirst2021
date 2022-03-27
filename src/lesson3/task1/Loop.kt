@@ -2,9 +2,7 @@
 
 package lesson3.task1
 
-import MyFunctions.sqrInt
 import lesson1.task1.sqr
-import lesson4.task1.russian
 import java.math.BigInteger
 import kotlin.math.*
 
@@ -241,20 +239,32 @@ fun cos(x: Double, eps: Double): Double {
  */
 
 fun squareSequenceDigit(n: Int): Int {
-    val list = mutableListOf<Int>()
+    var i = 0
+    var a = 0.toBigInteger()
+    var sq = 0.toBigInteger()
+    var c = 1
+    var k = 10
     var symbolscount = 0
-    var num = 0
-    var i = 1
     while (symbolscount < n) {
-        num = sqr(i)
-        while (num > 0) {
-            list.add(num%10)
-            num /= 10
-            symbolscount ++
+        i += 1
+        sq = (sqr(i)).toBigInteger()
+        c = 1
+        k = 10
+        while ((sq / k.toBigInteger()) != 0.toBigInteger()) {
+            k *= 10
+            c += 1
         }
-        i++
+        symbolscount += c
     }
-    return list[n-1] //попробовать переделать без листа
+    symbolscount -= c
+    k /= 10
+    while (symbolscount != n) {
+        a = (sq / k.toBigInteger()) % 10.toBigInteger()
+        k /= 10
+        symbolscount += 1
+    }
+    return a.toInt()
+
 }
 /**
 var i = 0
@@ -295,4 +305,3 @@ return a
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int = TODO()
-//
